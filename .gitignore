@@ -1,0 +1,46 @@
+## Core de Compilação do .NET (.NET 11 / C# 15)
+# Ignora todas as pastas de binários e objetos gerados pelo build
+[Bb]in/
+[Oo]bj/
+# Ignora arquivos de publicação locais
+[Log]s/
+publish/
+*.azurePubxml
+
+## Banco de Dados e Migrations
+# Ignora o cache local do Entity Framework Core
+.dbcontext-cache/
+# NOTA: Os arquivos na pasta Data/Migrations NÃO são ignorados, pois são o histórico do banco!
+
+## IDEs e Editores de Código (Visual Studio / Cursor / VS Code)
+# Ferramentas de design do Visual Studio
+.vs/
+*.user
+*.userosscache
+*.suo
+*.userprefs
+
+# Configurações locais do Cursor / VS Code
+.vscode/*
+# EXCEÇÃO: Permite versionar as extensões recomendadas para o time trabalhar igual
+!.vscode/extensions.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# Ferramentas específicas do ecossistema .NET (C# Dev Kit)
+.csdevkit/
+
+## Arquivos de Configuração de Ambiente e Senhas
+# NUNCA envie suas credenciais reais da VPS ou chaves de produção
+appsettings.Production.json
+appsettings.staging.json
+
+# Se você costuma colocar senhas locais no Development, descomente a linha abaixo:
+# appsettings.Development.json
+
+## Sistemas Operacionais
+# Arquivos de miniaturas e configurações de pastas do SO
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
