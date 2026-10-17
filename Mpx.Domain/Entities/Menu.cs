@@ -13,6 +13,8 @@ public class Menu
   public Guid? MenuId { get; set; }
 
   public virtual Corporation? Corporation { get; set; }
-  public virtual ICollection<Menu> Menus { get; set; } = [];
+
+  public virtual Menu? ParentMenu { get; set; }
+  public virtual ICollection<Menu> SubMenus { get; set; } = [];
 }
 

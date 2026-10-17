@@ -16,7 +16,7 @@ partial class MorphusDbContextModelSnapshot : ModelSnapshot
     // If you encounter a merge conflict in the line below, it means you need to
     // discard one of the migration branches and recreate its migrations on top of
     // the other branch. See https://aka.ms/efcore-docs-migrations-conflicts for more info.
-    public override string LastMigrationId => "20261017001817_InitialMorphusDb";
+    public override string LastMigrationId => "20261017140045_InitialMorphusDbSnake";
 
     protected override void BuildModel(ModelBuilder modelBuilder)
     {
@@ -34,373 +34,477 @@ partial class MorphusDbContextModelSnapshot : ModelSnapshot
             {
                 b.Property<Guid>("Id")
                     .ValueGeneratedOnAdd()
-                    .HasColumnType("uuid");
+                    .HasColumnType("uuid")
+                    .HasColumnName("id");
 
                 b.Property<Guid?>("CorporationId")
-                    .HasColumnType("uuid");
+                    .HasColumnType("uuid")
+                    .HasColumnName("corporation_id");
 
                 b.Property<string>("Description")
-                    .HasColumnType("text");
+                    .HasColumnType("text")
+                    .HasColumnName("description");
 
                 b.Property<string>("Email")
                     .IsRequired()
                     .HasMaxLength(150)
-                    .HasColumnType("character varying(150)");
+                    .HasColumnType("character varying(150)")
+                    .HasColumnName("email");
 
                 b.Property<string>("FullName")
-                    .HasColumnType("text");
+                    .HasColumnType("text")
+                    .HasColumnName("full_name");
 
                 b.Property<string>("Key")
                     .IsRequired()
                     .HasMaxLength(100)
-                    .HasColumnType("character varying(100)");
+                    .HasColumnType("character varying(100)")
+                    .HasColumnName("key");
 
                 b.Property<string>("Name")
                     .IsRequired()
                     .HasMaxLength(150)
-                    .HasColumnType("character varying(150)");
+                    .HasColumnType("character varying(150)")
+                    .HasColumnName("name");
 
                 b.Property<bool>("System")
                     .ValueGeneratedOnAdd()
                     .HasColumnType("boolean")
-                    .HasDefaultValue(false);
+                    .HasDefaultValue(false)
+                    .HasColumnName("system");
 
-                b.HasKey("Id");
+                b.HasKey("Id")
+                    .HasName("pk_corporations");
 
-                b.HasIndex("CorporationId");
+                b.HasIndex("CorporationId")
+                    .HasDatabaseName("ix_corporations_corporation_id");
 
-                b.ToTable("corporation");
+                b.ToTable("corporations");
             });
 
         modelBuilder.Entity("Mpx.Domain.Entities.Email", b =>
             {
                 b.Property<Guid>("Id")
                     .ValueGeneratedOnAdd()
-                    .HasColumnType("uuid");
+                    .HasColumnType("uuid")
+                    .HasColumnName("id");
 
                 b.Property<string>("HtmlBody")
-                    .HasColumnType("text");
+                    .HasColumnType("text")
+                    .HasColumnName("html_body");
 
                 b.Property<bool>("IsHtmlBody")
-                    .HasColumnType("boolean");
+                    .HasColumnType("boolean")
+                    .HasColumnName("is_html_body");
 
                 b.Property<bool>("MailSent")
-                    .HasColumnType("boolean");
+                    .HasColumnType("boolean")
+                    .HasColumnName("mail_sent");
 
                 b.Property<string>("Subject")
-                    .HasColumnType("text");
+                    .HasMaxLength(250)
+                    .HasColumnType("character varying(250)")
+                    .HasColumnName("subject");
 
                 b.Property<string>("TextBody")
-                    .HasColumnType("text");
+                    .HasColumnType("text")
+                    .HasColumnName("text_body");
 
-                b.HasKey("Id");
+                b.HasKey("Id")
+                    .HasName("pk_emails");
 
-                b.ToTable("Emails");
+                b.ToTable("emails");
             });
 
         modelBuilder.Entity("Mpx.Domain.Entities.EmailBcc", b =>
             {
                 b.Property<Guid>("Id")
                     .ValueGeneratedOnAdd()
-                    .HasColumnType("uuid");
+                    .HasColumnType("uuid")
+                    .HasColumnName("id");
 
                 b.Property<Guid>("EmailId")
-                    .HasColumnType("uuid");
+                    .HasColumnType("uuid")
+                    .HasColumnName("email_id");
 
                 b.Property<string>("Mail")
                     .IsRequired()
-                    .HasColumnType("text");
+                    .HasMaxLength(150)
+                    .HasColumnType("character varying(150)")
+                    .HasColumnName("mail");
 
                 b.Property<string>("Name")
-                    .HasColumnType("text");
+                    .HasMaxLength(100)
+                    .HasColumnType("character varying(100)")
+                    .HasColumnName("name");
 
-                b.HasKey("Id");
+                b.HasKey("Id")
+                    .HasName("pk_emails_bcc");
 
-                b.HasIndex("EmailId");
+                b.HasIndex("EmailId")
+                    .HasDatabaseName("ix_emails_bcc_email_id");
 
-                b.ToTable("EmailsBcc");
+                b.ToTable("emails_bcc");
             });
 
         modelBuilder.Entity("Mpx.Domain.Entities.EmailCc", b =>
             {
                 b.Property<Guid>("Id")
                     .ValueGeneratedOnAdd()
-                    .HasColumnType("uuid");
+                    .HasColumnType("uuid")
+                    .HasColumnName("id");
 
                 b.Property<Guid>("EmailId")
-                    .HasColumnType("uuid");
+                    .HasColumnType("uuid")
+                    .HasColumnName("email_id");
 
                 b.Property<string>("Mail")
                     .IsRequired()
-                    .HasColumnType("text");
+                    .HasMaxLength(150)
+                    .HasColumnType("character varying(150)")
+                    .HasColumnName("mail");
 
                 b.Property<string>("Name")
-                    .HasColumnType("text");
+                    .HasMaxLength(100)
+                    .HasColumnType("character varying(100)")
+                    .HasColumnName("name");
 
-                b.HasKey("Id");
+                b.HasKey("Id")
+                    .HasName("pk_emails_cc");
 
-                b.HasIndex("EmailId");
+                b.HasIndex("EmailId")
+                    .HasDatabaseName("ix_emails_cc_email_id");
 
-                b.ToTable("EmailsCc");
+                b.ToTable("emails_cc");
             });
 
         modelBuilder.Entity("Mpx.Domain.Entities.EmailFrom", b =>
             {
                 b.Property<Guid>("Id")
                     .ValueGeneratedOnAdd()
-                    .HasColumnType("uuid");
+                    .HasColumnType("uuid")
+                    .HasColumnName("id");
 
                 b.Property<Guid>("EmailId")
-                    .HasColumnType("uuid");
+                    .HasColumnType("uuid")
+                    .HasColumnName("email_id");
 
                 b.Property<string>("Mail")
                     .IsRequired()
-                    .HasColumnType("text");
+                    .HasMaxLength(150)
+                    .HasColumnType("character varying(150)")
+                    .HasColumnName("mail");
 
                 b.Property<string>("Name")
-                    .HasColumnType("text");
+                    .HasMaxLength(100)
+                    .HasColumnType("character varying(100)")
+                    .HasColumnName("name");
 
-                b.HasKey("Id");
+                b.HasKey("Id")
+                    .HasName("pk_emails_from");
 
-                b.HasIndex("EmailId");
+                b.HasIndex("EmailId")
+                    .HasDatabaseName("ix_emails_from_email_id");
 
-                b.ToTable("EmailsFrom");
+                b.ToTable("emails_from");
             });
 
         modelBuilder.Entity("Mpx.Domain.Entities.EmailTo", b =>
             {
                 b.Property<Guid>("Id")
                     .ValueGeneratedOnAdd()
-                    .HasColumnType("uuid");
+                    .HasColumnType("uuid")
+                    .HasColumnName("id");
 
                 b.Property<Guid>("EmailId")
-                    .HasColumnType("uuid");
+                    .HasColumnType("uuid")
+                    .HasColumnName("email_id");
 
                 b.Property<string>("Mail")
                     .IsRequired()
-                    .HasColumnType("text");
+                    .HasMaxLength(150)
+                    .HasColumnType("character varying(150)")
+                    .HasColumnName("mail");
 
                 b.Property<string>("Name")
-                    .HasColumnType("text");
+                    .HasMaxLength(100)
+                    .HasColumnType("character varying(100)")
+                    .HasColumnName("name");
 
-                b.HasKey("Id");
+                b.HasKey("Id")
+                    .HasName("pk_emails_to");
 
-                b.HasIndex("EmailId");
+                b.HasIndex("EmailId")
+                    .HasDatabaseName("ix_emails_to_email_id");
 
-                b.ToTable("EmailsTo");
+                b.ToTable("emails_to");
             });
 
         modelBuilder.Entity("Mpx.Domain.Entities.Menu", b =>
             {
                 b.Property<Guid>("Id")
                     .ValueGeneratedOnAdd()
-                    .HasColumnType("uuid");
+                    .HasColumnType("uuid")
+                    .HasColumnName("id");
 
                 b.Property<string>("Application")
                     .IsRequired()
                     .HasMaxLength(1)
-                    .HasColumnType("character varying(1)");
+                    .HasColumnType("character varying(1)")
+                    .HasColumnName("application");
 
                 b.Property<Guid>("CorporationId")
-                    .HasColumnType("uuid");
+                    .HasColumnType("uuid")
+                    .HasColumnName("corporation_id");
 
                 b.Property<string>("Description")
-                    .HasColumnType("text");
+                    .HasColumnType("text")
+                    .HasColumnName("description");
 
                 b.Property<string>("Icon")
-                    .HasColumnType("text");
+                    .HasColumnType("text")
+                    .HasColumnName("icon");
 
                 b.Property<string>("Label")
                     .IsRequired()
                     .HasMaxLength(25)
-                    .HasColumnType("character varying(25)");
+                    .HasColumnType("character varying(25)")
+                    .HasColumnName("label");
 
                 b.Property<Guid?>("MenuId")
-                    .HasColumnType("uuid");
+                    .HasColumnType("uuid")
+                    .HasColumnName("menu_id");
 
                 b.Property<bool>("System")
                     .ValueGeneratedOnAdd()
                     .HasColumnType("boolean")
-                    .HasDefaultValue(false);
+                    .HasDefaultValue(false)
+                    .HasColumnName("system");
 
                 b.Property<string>("Url")
-                    .HasColumnType("text");
+                    .HasColumnType("text")
+                    .HasColumnName("url");
 
-                b.HasKey("Id");
+                b.HasKey("Id")
+                    .HasName("pk_menus");
 
-                b.HasIndex("CorporationId");
+                b.HasIndex("CorporationId")
+                    .HasDatabaseName("ix_menus_corporation_id");
 
-                b.HasIndex("MenuId");
+                b.HasIndex("MenuId")
+                    .HasDatabaseName("ix_menus_menu_id");
 
-                b.ToTable("menu");
+                b.ToTable("menus");
             });
 
         modelBuilder.Entity("Mpx.Domain.Entities.Module", b =>
             {
                 b.Property<Guid>("Id")
                     .ValueGeneratedOnAdd()
-                    .HasColumnType("uuid");
+                    .HasColumnType("uuid")
+                    .HasColumnName("id");
 
                 b.Property<Guid>("CorporationId")
-                    .HasColumnType("uuid");
+                    .HasColumnType("uuid")
+                    .HasColumnName("corporation_id");
 
                 b.Property<string>("Description")
-                    .HasColumnType("text");
+                    .HasColumnType("text")
+                    .HasColumnName("description");
 
                 b.Property<string>("Key")
                     .IsRequired()
                     .HasMaxLength(100)
-                    .HasColumnType("character varying(100)");
+                    .HasColumnType("character varying(100)")
+                    .HasColumnName("key");
 
                 b.Property<string>("Name")
                     .IsRequired()
                     .HasMaxLength(150)
-                    .HasColumnType("character varying(150)");
+                    .HasColumnType("character varying(150)")
+                    .HasColumnName("name");
 
                 b.Property<bool>("System")
                     .ValueGeneratedOnAdd()
                     .HasColumnType("boolean")
-                    .HasDefaultValue(false);
+                    .HasDefaultValue(false)
+                    .HasColumnName("system");
 
-                b.HasKey("Id");
+                b.HasKey("Id")
+                    .HasName("pk_modules");
 
-                b.HasIndex("CorporationId");
+                b.HasIndex("CorporationId")
+                    .HasDatabaseName("ix_modules_corporation_id");
 
-                b.ToTable("module");
+                b.ToTable("modules");
             });
 
         modelBuilder.Entity("Mpx.Domain.Entities.SubModule", b =>
             {
                 b.Property<Guid>("Id")
                     .ValueGeneratedOnAdd()
-                    .HasColumnType("uuid");
+                    .HasColumnType("uuid")
+                    .HasColumnName("id");
 
                 b.Property<Guid>("CorporationId")
-                    .HasColumnType("uuid");
+                    .HasColumnType("uuid")
+                    .HasColumnName("corporation_id");
 
                 b.Property<string>("Description")
-                    .HasColumnType("text");
+                    .HasColumnType("text")
+                    .HasColumnName("description");
 
                 b.Property<string>("Key")
                     .IsRequired()
                     .HasMaxLength(100)
-                    .HasColumnType("character varying(100)");
+                    .HasColumnType("character varying(100)")
+                    .HasColumnName("key");
 
                 b.Property<Guid>("ModuleId")
-                    .HasColumnType("uuid");
+                    .HasColumnType("uuid")
+                    .HasColumnName("module_id");
 
                 b.Property<string>("Name")
                     .IsRequired()
                     .HasMaxLength(150)
-                    .HasColumnType("character varying(150)");
+                    .HasColumnType("character varying(150)")
+                    .HasColumnName("name");
 
                 b.Property<bool>("System")
                     .ValueGeneratedOnAdd()
                     .HasColumnType("boolean")
-                    .HasDefaultValue(false);
+                    .HasDefaultValue(false)
+                    .HasColumnName("system");
 
-                b.HasKey("Id");
+                b.HasKey("Id")
+                    .HasName("pk_sub_modules");
 
-                b.HasIndex("CorporationId");
+                b.HasIndex("CorporationId")
+                    .HasDatabaseName("ix_sub_modules_corporation_id");
 
-                b.HasIndex("ModuleId");
+                b.HasIndex("ModuleId")
+                    .HasDatabaseName("ix_sub_modules_module_id");
 
-                b.ToTable("subModule");
+                b.ToTable("sub_modules");
             });
 
         modelBuilder.Entity("Mpx.Domain.Entities.User", b =>
             {
                 b.Property<Guid>("Id")
                     .ValueGeneratedOnAdd()
-                    .HasColumnType("uuid");
+                    .HasColumnType("uuid")
+                    .HasColumnName("id");
 
                 b.Property<Guid>("CorporationId")
-                    .HasColumnType("uuid");
+                    .HasColumnType("uuid")
+                    .HasColumnName("corporation_id");
 
                 b.Property<string>("Email")
                     .IsRequired()
                     .HasMaxLength(150)
-                    .HasColumnType("character varying(150)");
+                    .HasColumnType("character varying(150)")
+                    .HasColumnName("email");
 
                 b.Property<bool>("EmailConfirmed")
                     .ValueGeneratedOnAdd()
                     .HasColumnType("boolean")
-                    .HasDefaultValue(false);
+                    .HasDefaultValue(false)
+                    .HasColumnName("email_confirmed");
 
                 b.Property<string>("Name")
                     .IsRequired()
                     .HasMaxLength(150)
-                    .HasColumnType("character varying(150)");
+                    .HasColumnType("character varying(150)")
+                    .HasColumnName("name");
 
                 b.Property<string>("NickName")
-                    .HasColumnType("text");
+                    .HasColumnType("text")
+                    .HasColumnName("nick_name");
 
                 b.Property<string>("PasswordHash")
-                    .HasColumnType("text");
+                    .HasColumnType("text")
+                    .HasColumnName("password_hash");
 
                 b.Property<bool>("PhoneConfirmed")
                     .ValueGeneratedOnAdd()
                     .HasColumnType("boolean")
-                    .HasDefaultValue(false);
+                    .HasDefaultValue(false)
+                    .HasColumnName("phone_confirmed");
 
                 b.Property<string>("PhoneNumber")
-                    .HasColumnType("text");
+                    .HasColumnType("text")
+                    .HasColumnName("phone_number");
 
                 b.Property<string>("Picture")
-                    .HasColumnType("text");
+                    .HasColumnType("text")
+                    .HasColumnName("picture");
 
                 b.Property<bool>("System")
-                    .HasColumnType("boolean");
+                    .HasColumnType("boolean")
+                    .HasColumnName("system");
 
                 b.Property<bool>("TermsConfirmed")
                     .ValueGeneratedOnAdd()
                     .HasColumnType("boolean")
-                    .HasDefaultValue(false);
+                    .HasDefaultValue(false)
+                    .HasColumnName("terms_confirmed");
 
                 b.Property<Guid>("UserStatusId")
-                    .HasColumnType("uuid");
+                    .HasColumnType("uuid")
+                    .HasColumnName("user_status_id");
 
-                b.HasKey("Id");
+                b.HasKey("Id")
+                    .HasName("pk_users");
 
-                b.HasIndex("CorporationId");
+                b.HasIndex("CorporationId")
+                    .HasDatabaseName("ix_users_corporation_id");
 
-                b.HasIndex("UserStatusId");
+                b.HasIndex("UserStatusId")
+                    .HasDatabaseName("ix_users_user_status_id");
 
-                b.ToTable("User");
+                b.ToTable("users");
             });
 
         modelBuilder.Entity("Mpx.Domain.Entities.UserStatus", b =>
             {
                 b.Property<Guid>("Id")
                     .ValueGeneratedOnAdd()
-                    .HasColumnType("uuid");
+                    .HasColumnType("uuid")
+                    .HasColumnName("id");
 
                 b.Property<Guid>("CorporationId")
-                    .HasColumnType("uuid");
+                    .HasColumnType("uuid")
+                    .HasColumnName("corporation_id");
 
                 b.Property<string>("Description")
-                    .HasColumnType("text");
+                    .HasColumnType("text")
+                    .HasColumnName("description");
 
                 b.Property<string>("Key")
                     .IsRequired()
                     .HasMaxLength(150)
-                    .HasColumnType("character varying(150)");
+                    .HasColumnType("character varying(150)")
+                    .HasColumnName("key");
 
                 b.Property<string>("Name")
                     .IsRequired()
                     .HasMaxLength(150)
-                    .HasColumnType("character varying(150)");
+                    .HasColumnType("character varying(150)")
+                    .HasColumnName("name");
 
                 b.Property<bool>("System")
                     .ValueGeneratedOnAdd()
                     .HasColumnType("boolean")
-                    .HasDefaultValue(false);
+                    .HasDefaultValue(false)
+                    .HasColumnName("system");
 
-                b.HasKey("Id");
+                b.HasKey("Id")
+                    .HasName("pk_user_status");
 
-                b.HasIndex("CorporationId");
+                b.HasIndex("CorporationId")
+                    .HasDatabaseName("ix_user_status_corporation_id");
 
-                b.ToTable("UserStatus");
+                b.ToTable("user_status");
             });
 
         modelBuilder.Entity("Mpx.Domain.Entities.Corporation", b =>
@@ -408,7 +512,8 @@ partial class MorphusDbContextModelSnapshot : ModelSnapshot
                 b.HasOne("Mpx.Domain.Entities.Corporation", "ParentCorporation")
                     .WithMany("Corporations")
                     .HasForeignKey("CorporationId")
-                    .OnDelete(DeleteBehavior.Restrict);
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .HasConstraintName("fk_corporations_corporations_corporation_id");
 
                 b.Navigation("ParentCorporation");
             });
@@ -416,10 +521,11 @@ partial class MorphusDbContextModelSnapshot : ModelSnapshot
         modelBuilder.Entity("Mpx.Domain.Entities.EmailBcc", b =>
             {
                 b.HasOne("Mpx.Domain.Entities.Email", "Email")
-                    .WithMany("MailBcc")
+                    .WithMany("EmailBcc")
                     .HasForeignKey("EmailId")
                     .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                    .IsRequired()
+                    .HasConstraintName("fk_emails_bcc_emails_email_id");
 
                 b.Navigation("Email");
             });
@@ -427,10 +533,11 @@ partial class MorphusDbContextModelSnapshot : ModelSnapshot
         modelBuilder.Entity("Mpx.Domain.Entities.EmailCc", b =>
             {
                 b.HasOne("Mpx.Domain.Entities.Email", "Email")
-                    .WithMany("MaisCc")
+                    .WithMany("EmailCc")
                     .HasForeignKey("EmailId")
                     .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                    .IsRequired()
+                    .HasConstraintName("fk_emails_cc_emails_email_id");
 
                 b.Navigation("Email");
             });
@@ -438,10 +545,11 @@ partial class MorphusDbContextModelSnapshot : ModelSnapshot
         modelBuilder.Entity("Mpx.Domain.Entities.EmailFrom", b =>
             {
                 b.HasOne("Mpx.Domain.Entities.Email", "Email")
-                    .WithMany("MailFrom")
+                    .WithMany("EmailFrom")
                     .HasForeignKey("EmailId")
                     .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                    .IsRequired()
+                    .HasConstraintName("fk_emails_from_emails_email_id");
 
                 b.Navigation("Email");
             });
@@ -449,10 +557,11 @@ partial class MorphusDbContextModelSnapshot : ModelSnapshot
         modelBuilder.Entity("Mpx.Domain.Entities.EmailTo", b =>
             {
                 b.HasOne("Mpx.Domain.Entities.Email", "Email")
-                    .WithMany("MaislTo")
+                    .WithMany("EmailTo")
                     .HasForeignKey("EmailId")
                     .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                    .IsRequired()
+                    .HasConstraintName("fk_emails_to_emails_email_id");
 
                 b.Navigation("Email");
             });
@@ -463,13 +572,18 @@ partial class MorphusDbContextModelSnapshot : ModelSnapshot
                     .WithMany("Menus")
                     .HasForeignKey("CorporationId")
                     .OnDelete(DeleteBehavior.Restrict)
-                    .IsRequired();
+                    .IsRequired()
+                    .HasConstraintName("fk_menus_corporations_corporation_id");
 
-                b.HasOne("Mpx.Domain.Entities.Menu", null)
-                    .WithMany("Menus")
-                    .HasForeignKey("MenuId");
+                b.HasOne("Mpx.Domain.Entities.Menu", "ParentMenu")
+                    .WithMany("SubMenus")
+                    .HasForeignKey("MenuId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .HasConstraintName("fk_menus_menus_menu_id");
 
                 b.Navigation("Corporation");
+
+                b.Navigation("ParentMenu");
             });
 
         modelBuilder.Entity("Mpx.Domain.Entities.Module", b =>
@@ -478,7 +592,8 @@ partial class MorphusDbContextModelSnapshot : ModelSnapshot
                     .WithMany("Modules")
                     .HasForeignKey("CorporationId")
                     .OnDelete(DeleteBehavior.Restrict)
-                    .IsRequired();
+                    .IsRequired()
+                    .HasConstraintName("fk_modules_corporations_corporation_id");
 
                 b.Navigation("Corporation");
             });
@@ -489,13 +604,15 @@ partial class MorphusDbContextModelSnapshot : ModelSnapshot
                     .WithMany("SubModules")
                     .HasForeignKey("CorporationId")
                     .OnDelete(DeleteBehavior.Restrict)
-                    .IsRequired();
+                    .IsRequired()
+                    .HasConstraintName("fk_sub_modules_corporations_corporation_id");
 
                 b.HasOne("Mpx.Domain.Entities.Module", "Module")
                     .WithMany("SubModules")
                     .HasForeignKey("ModuleId")
                     .OnDelete(DeleteBehavior.Restrict)
-                    .IsRequired();
+                    .IsRequired()
+                    .HasConstraintName("fk_sub_modules_modules_module_id");
 
                 b.Navigation("Corporation");
 
@@ -508,13 +625,15 @@ partial class MorphusDbContextModelSnapshot : ModelSnapshot
                     .WithMany("Users")
                     .HasForeignKey("CorporationId")
                     .OnDelete(DeleteBehavior.Restrict)
-                    .IsRequired();
+                    .IsRequired()
+                    .HasConstraintName("fk_users_corporations_corporation_id");
 
                 b.HasOne("Mpx.Domain.Entities.UserStatus", "UserStatus")
                     .WithMany("Users")
                     .HasForeignKey("UserStatusId")
                     .OnDelete(DeleteBehavior.Restrict)
-                    .IsRequired();
+                    .IsRequired()
+                    .HasConstraintName("fk_users_user_status_user_status_id");
 
                 b.Navigation("Corporation");
 
@@ -527,7 +646,8 @@ partial class MorphusDbContextModelSnapshot : ModelSnapshot
                     .WithMany("UserStatus")
                     .HasForeignKey("CorporationId")
                     .OnDelete(DeleteBehavior.Restrict)
-                    .IsRequired();
+                    .IsRequired()
+                    .HasConstraintName("fk_user_status_corporations_corporation_id");
 
                 b.Navigation("Corporation");
             });
@@ -549,18 +669,18 @@ partial class MorphusDbContextModelSnapshot : ModelSnapshot
 
         modelBuilder.Entity("Mpx.Domain.Entities.Email", b =>
             {
-                b.Navigation("MailBcc");
+                b.Navigation("EmailBcc");
 
-                b.Navigation("MailFrom");
+                b.Navigation("EmailCc");
 
-                b.Navigation("MaisCc");
+                b.Navigation("EmailFrom");
 
-                b.Navigation("MaislTo");
+                b.Navigation("EmailTo");
             });
 
         modelBuilder.Entity("Mpx.Domain.Entities.Menu", b =>
             {
-                b.Navigation("Menus");
+                b.Navigation("SubMenus");
             });
 
         modelBuilder.Entity("Mpx.Domain.Entities.Module", b =>

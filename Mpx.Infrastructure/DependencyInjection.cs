@@ -47,8 +47,10 @@ public static class InfrastructureDI
 
     var connectionString = configuration.GetConnectionString("DefaultConnection");
 
+
     services.AddDbContext<MorphusDbContext>(options => options
              .UseLazyLoadingProxies()
+             .UseSnakeCaseNamingConvention()
              .UseNpgsql(connectionString));
     // var connectionString = configuration.GetConnectionString("ConnectionString");
 

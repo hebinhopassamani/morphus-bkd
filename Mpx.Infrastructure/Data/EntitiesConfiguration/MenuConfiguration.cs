@@ -9,7 +9,6 @@ public class MenuConfiguration : IEntityTypeConfiguration<Menu>
 {
   public void Configure(EntityTypeBuilder<Menu> builder)
   {
-    builder.ToTable("menu");
     builder.HasKey(b => b.Id);
     builder.Property(b => b.Label).IsRequired().HasMaxLength(25);
     builder.Property(b => b.Application).IsRequired().HasMaxLength(1);
@@ -20,6 +19,11 @@ public class MenuConfiguration : IEntityTypeConfiguration<Menu>
     builder.HasOne(b => b.Corporation)
            .WithMany(b => b.Menus)
            .HasForeignKey(b => b.CorporationId)
+           .OnDelete(DeleteBehavior.Restrict);
+
+    builder.HasOne(b => b.ParentMenu)
+           .WithMany(b => b.SubMenus)
+           .HasForeignKey(b => b.MenuId)
            .OnDelete(DeleteBehavior.Restrict);
   }
 }
