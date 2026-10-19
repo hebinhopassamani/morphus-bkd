@@ -18,7 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Mpx.Domain\Mpx.Domain.csproj" />
     <ProjectReference Include="..\Mpx.Application\Mpx.Application.csproj" />
-    <ProjectReference Include="..\Mpx.Infrastructure\Mpx.Infrastructure.csproj" />
+    <ProjectReference Include="..\Mpx.CrossCutting\Mpx.CrossCutting.csproj" />
   </ItemGroup>
 
 </Project>

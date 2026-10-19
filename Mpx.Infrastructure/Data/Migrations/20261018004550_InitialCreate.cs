@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Mpx.Infrastructure.Data.Migrations;
 
 /// <inheritdoc />
-public partial class _20261017140045_InitialMorphusDbSnake : Migration
+public partial class _20261018004550_InitialCreate : Migration
 {
     /// <inheritdoc />
     protected override void Up(MigrationBuilder migrationBuilder)

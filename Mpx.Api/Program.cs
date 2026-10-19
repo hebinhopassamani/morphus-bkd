@@ -1,22 +1,16 @@
-using Mpx.Api;
-using Mpx.Application;
-using Mpx.Domain;
-using Mpx.Infrastructure;
+using Mpx.CrossCutting;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.AddMorphusDependecyInjection();
 
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 
-ApiDI.AddJsonSettings(builder.Services);
-ApiDI.AddDependencyInjection(builder.Services);
-ApiDI.AddAuth0Authentication(builder.Services, builder.Configuration);
-InfrastructureDI.AddMorhusDbContext(builder.Services, builder.Configuration);
-InfrastructureDI.AddDependencyInjection(builder.Services);
-DomainDI.AddDependencyInjection(builder.Services);
-ApplicationDI.AddDependencyInjection(builder.Services);
-
 var app = builder.Build();
+
+// 1. O CORS DEVE SER O PRIMEIRO DE TUDO (Garante que limpe o Preflight/OPTIONS)
+app.UseCors("MorphusFront");
 
 if (app.Environment.IsDevelopment())
 {
@@ -24,9 +18,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
-app.UseRouting();
-app.UseCors("AllowCredentials");
+
+// 3. SEGURANÇA NA ORDEM PERFEITA (Autentica primeiro, autoriza depois)
 app.UseAuthentication();
 app.UseAuthorization();
 

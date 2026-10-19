@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Mpx.Infrastructure.Data.Migrations;
 
 [DbContext(typeof(MorphusDbContext))]
-[Migration("20261017140045_InitialMorphusDbSnake")]
-partial class _20261017140045_InitialMorphusDbSnake
+[Migration("20261018004550_InitialCreate")]
+partial class _20261018004550_InitialCreate
 {
     /// <inheritdoc />
     protected override void BuildTargetModel(ModelBuilder modelBuilder)
