@@ -10,7 +10,7 @@ builder.Services.AddControllers();
 var app = builder.Build();
 
 // 1. O CORS DEVE SER O PRIMEIRO DE TUDO (Garante que limpe o Preflight/OPTIONS)
-app.UseCors("MorphusFront");
+app.UseCors("MorphusCorsPolicy");
 
 if (app.Environment.IsDevelopment())
 {

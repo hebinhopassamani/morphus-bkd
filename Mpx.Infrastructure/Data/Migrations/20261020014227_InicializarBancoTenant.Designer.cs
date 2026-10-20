@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Mpx.Infrastructure.Data.Migrations;
 
 [DbContext(typeof(MorphusDbContext))]
-[Migration("20261018004550_InitialCreate")]
-partial class _20261018004550_InitialCreate
+[Migration("20261020014227_InicializarBancoTenant")]
+partial class _20261020014227_InicializarBancoTenant
 {
     /// <inheritdoc />
     protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -327,6 +327,11 @@ partial class _20261018004550_InitialCreate
                     .HasColumnType("boolean")
                     .HasDefaultValue(false)
                     .HasColumnName("system");
+
+                b.Property<string>("TenantId")
+                    .IsRequired()
+                    .HasColumnType("text")
+                    .HasColumnName("tenant_id");
 
                 b.HasKey("Id")
                     .HasName("pk_modules");

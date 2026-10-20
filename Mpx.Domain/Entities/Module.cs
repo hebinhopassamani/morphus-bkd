@@ -1,6 +1,8 @@
-﻿namespace Mpx.Domain.Entities
+﻿using Mpx.Domain.Interfaces;
+
+namespace Mpx.Domain.Entities
 {
-  public class Module
+  public class Module : IMorphusTenant
   {
     public Guid Id { get; set; }
     public required string Name { get; set; }
@@ -11,6 +13,7 @@
 
     public virtual Corporation? Corporation { get; set; }
     public virtual ICollection<SubModule> SubModules { get; set; } = [];
+    public string TenantId { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
   }
 }
 

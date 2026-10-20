@@ -6,7 +6,6 @@ using Mpx.Domain.Interfaces;
 using Mpx.Application.Handlers;
 using mpx.Domain.Interfaces;
 using Mpx.Infrastructure.Data.Repositories;
-using Renci.SshNet;
 using System.Text.Json.Serialization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.DependencyInjection;
@@ -73,7 +72,8 @@ public static class DependencyInjection
 
     var connectionBuilder = new NpgsqlConnectionStringBuilder(connectionString)
     {
-      Password = builder.Configuration["POSTGRES_DB_PASSWORD"] ?? throw new InvalidOperationException("Nenhuma senha de banco de dados configurada")
+      Password = Environment.GetEnvironmentVariable("POSTGRES_DB_PASSWORD")
+               ?? throw new InvalidOperationException("Nenhuma senha de banco de dados configurada")
     };
 
     builder.Services.AddDbContext<MorphusDbContext>(options =>
@@ -109,12 +109,13 @@ public static class DependencyInjection
       options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     }).AddJwtBearer(options =>
     {
-      options.Authority = auth0Domain;
+      options.Authority = $"https://{auth0Domain}/";
       options.Audience = auth0Audience;
 
       options.TokenValidationParameters = new TokenValidationParameters
       {
         ValidateIssuer = true,
+        ValidIssuer = $"https://{auth0Domain}/",
         ValidateAudience = true,
         ValidateLifetime = true
       };

@@ -16,7 +16,7 @@ partial class MorphusDbContextModelSnapshot : ModelSnapshot
     // If you encounter a merge conflict in the line below, it means you need to
     // discard one of the migration branches and recreate its migrations on top of
     // the other branch. See https://aka.ms/efcore-docs-migrations-conflicts for more info.
-    public override string LastMigrationId => "20261018004550_InitialCreate";
+    public override string LastMigrationId => "20261020014227_InicializarBancoTenant";
 
     protected override void BuildModel(ModelBuilder modelBuilder)
     {
@@ -329,6 +329,11 @@ partial class MorphusDbContextModelSnapshot : ModelSnapshot
                     .HasColumnType("boolean")
                     .HasDefaultValue(false)
                     .HasColumnName("system");
+
+                b.Property<string>("TenantId")
+                    .IsRequired()
+                    .HasColumnType("text")
+                    .HasColumnName("tenant_id");
 
                 b.HasKey("Id")
                     .HasName("pk_modules");

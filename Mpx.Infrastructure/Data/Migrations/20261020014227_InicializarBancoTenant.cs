@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Mpx.Infrastructure.Data.Migrations;
 
 /// <inheritdoc />
-public partial class _20261018004550_InitialCreate : Migration
+public partial class _20261020014227_InicializarBancoTenant : Migration
 {
     /// <inheritdoc />
     protected override void Up(MigrationBuilder migrationBuilder)
@@ -91,7 +91,8 @@ public partial class _20261018004550_InitialCreate : Migration
                 key = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                 system = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
                 corporation_id = table.Column<Guid>(type: "uuid", nullable: false),
-                description = table.Column<string>(type: "text", nullable: true)
+                description = table.Column<string>(type: "text", nullable: true),
+                tenant_id = table.Column<string>(type: "text", nullable: false)
             },
             constraints: table =>
             {
